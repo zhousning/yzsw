@@ -1,0 +1,34 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-sm-12
+              %h2.text-center
+                = @article.title
+              %p.text-center                                                                                               
+                %small                                                                                                     
+                  = "发布时间: " +  @article.pdt_date.strftime('%Y-%m-%d')                                                
+            .col-md-6.offset-3.p-5.border
+              = @article.content.nil? ? '' : @article.content.html_safe       
+                    
+              - if @article.attachments.size > 0
+                .row
+                  .col-md-12
+                    %h5.text-danger
+                      附件:
+                  - @article.attachments.each_with_index do |e, i|
+                    .col-md-12
+                      = link_to File.basename(URI.decode(e.file_url)), download_attachment_article_path(idencode(@article.id), :number => i, :ft => '')
+              
+              
+      = render "layouts/bootstrap/card"

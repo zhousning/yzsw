@@ -1,0 +1,514 @@
+const app = getApp();
+
+Page({
+    data: {
+        StatusBar: app.globalData.StatusBar,
+        CustomBar: app.globalData.CustomBar,
+        ColorList: app.globalData.ColorList,
+        items: [],
+      <% if @upload %>
+        TabCur: 0,
+        scrollLeft:0,
+        tabs: [
+          {id: 0, title: '未接单'},
+          {id: 1, title: '处理中'},
+          {id: 2, title: '待确认'},
+          {id: 3, title: '已完成'}
+        ],
+      <% end %>
+      <% if @one_enclosure.size > 0 %>
+        checkbox: [{
+          value: 0,
+          name: '10元',
+          checked: false,
+          hot: false,
+        }, {
+          value: 1,
+          name: '100元',
+          checked: true,
+          hot: false,
+        }],
+      <% end %>
+      <% if @js || @scss || @download %>
+        cardCur: 0,
+        swiperList: [{
+          id: 0,
+          type: 'image',
+          url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+        }, {
+          id: 1,
+            type: 'image',
+            url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
+        }, {
+          id: 2,
+          type: 'image',
+          url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+        }],
+      <% end %>
+      <% if @attachment || @index || @new %>
+        iconList: [{
+           icon: 'cardboardfill',
+           color: 'red',
+           badge: 120,
+           name: 'VR'
+         }, {
+           icon: 'recordfill',
+           color: 'orange',
+           badge: 1,
+           name: '录像'
+         }, {
+           icon: 'picfill',
+           color: 'yellow',
+           badge: 0,
+           name: '图像'
+         }, {
+           icon: 'brandfill',
+           color: 'mauve',
+           badge: 0,
+           name: '版权'
+         }],
+        gridCol:3,
+        gridBorder: true,
+        menuBorder: true,
+        menuArrow: true,
+        menuCard: true,
+      <% end %>
+      <% @attrs.each_with_index do |attr, index| %>
+        <% if options[:tag][index] == 'text' || options[:tag][index] == 'text_icon' || options[:tag][index] == 'text_btn' || options[:tag][index] == 'textarea' %>
+        <% elsif options[:tag][index] == 'picker'%>
+          <%= attr %>: [],
+          <%= attr %>_index: 0,
+        <% elsif options[:tag][index] == 'time'%>
+          <%= attr %>: '12:00',
+        <% elsif options[:tag][index] == 'date'%>
+          <%= attr %>: '2022-01-01',
+        <% elsif options[:tag][index] == 'address'%>
+          <%= attr %>: ['山东省', '济宁市', '任城区'],
+        <% elsif options[:tag][index] == 'multi_picker' %>  
+          <%= attr %>: [
+            ['无脊柱动物', '脊柱动物'],
+            ['扁性动物', '线形动物', '环节动物', '软体动物', '节肢动物'],
+            ['猪肉绦虫', '吸血虫']
+          ],
+          <%= attr %>_multiIndex: [0, 0, 0],
+        <% elsif options[:tag][index] == 'image' %>  
+          imgList: [],
+          images: [],
+        <% elsif options[:tag][index] == 'radio' %>  
+          <%= attr %>: [
+              {value: 'USA', name: '美国'},
+              {value: 'CHN', name: '中国', checked: 'true'},
+          ],
+        <% elsif options[:tag][index] == 'checkbox' %>  
+          <%= attr %>: [
+              {value: 'USA', name: '美国'},
+              {value: 'CHN', name: '中国', checked: 'true'},
+          ],
+        <% elsif options[:tag][index] == 'switch' %>  
+        <% end %>
+      <% end %>
+    },
+
+    onLoad: function () {
+        let that = this;
+        let openid = wx.getStorageSync('openId')
+
+        <% if @download %>
+          that.towerSwiper('swiperList');
+        <% end %>
+
+        //wx.showLoading({
+        //    title: '数据加载中',
+        //})
+        //wx.request({
+        //    url: app.globalData.config.routes.status,
+        //    method: 'get',
+        //    header: {
+        //        'Accept': "*/*",
+        //        'content-type': 'application/json' // 默认值
+        //    },
+        //    data: {
+        //        id: openid
+        //    },
+        //    success: function (res) {
+        //        wx.hideLoading();
+        //        var data = res.data
+        //        if (data.status == 'ongoing') {
+
+        //        } else {
+
+        //        }
+        //    },
+        //    fail: function () {
+        //        wx.hideLoading();
+        //        wx.showToast({
+        //            title: '提交失败，请重新提交',
+        //            icon: 'none',
+        //            duration: 2000
+        //        })
+        //    }
+        //})
+    },
+
+    <% if @one_enclosure.size > 0 %>
+      showModal(e) {
+        this.setData({
+          modalName: e.currentTarget.dataset.target
+        })
+      },
+      hideModal(e) {
+        this.setData({
+          modalName: null
+        })
+      },
+      ChooseCheckbox(e) {
+        let items = this.data.checkbox;
+        let values = e.currentTarget.dataset.value;
+        for (let i = 0, lenI = items.length; i < lenI; ++i) {
+          if (items[i].value == values) {
+            items[i].checked = !items[i].checked;
+            break
+          }
+        }
+        this.setData({
+          checkbox: items
+        })
+      },
+    <% end %>
+
+    <% @attrs.each_with_index do |attr, index| %>
+      <% if options[:tag][index] == 'text' || options[:tag][index] == 'text_icon' || options[:tag][index] == 'text_btn' || options[:tag][index] == 'textarea' %>
+         <%= attr %>Input(e) {
+           this.setData({
+             <%= attr %>: e.detail.value
+           })
+         },
+      <% elsif options[:tag][index] == 'picker' || options[:tag][index] == 'time' || options[:tag][index] == 'date' || options[:tag][index] == 'address'%>
+         <%= attr %>Change(e) {
+             this.setData({
+                 <%= attr %>: e.detail.value
+             })
+         },
+      <% elsif options[:tag][index] == 'multi_picker' %>  
+         <%= attr %>MultiChange(e) {
+           this.setData({
+             <%= attr %>_multiIndex: e.detail.value
+           })
+         },
+         <%= attr %>MultiColumnChange(e) {
+           let data = {
+             <%= attr %>: this.data.<%= attr %>,
+             <%= attr %>_multiIndex: this.data.<%= attr %>_multiIndex
+           };
+           data.<%= attr %>_multiIndex[e.detail.column] = e.detail.value;
+           switch (e.detail.column) {
+             case 0:
+               switch (data.<%= attr %>_multiIndex[0]) {
+                 case 0:
+                   data.<%= attr %>[1] = ['扁性动物', '线形动物', '环节动物', '软体动物', '节肢动物'];
+                   data.<%= attr %>[2] = ['猪肉绦虫', '吸血虫'];
+                   break;
+                 case 1:
+                   data.<%= attr %>[1] = ['鱼', '两栖动物', '爬行动物'];
+                   data.<%= attr %>[2] = ['鲫鱼', '带鱼'];
+                   break;
+               }
+               data.<%= attr %>_multiIndex[1] = 0;
+               data.<%= attr %>_multiIndex[2] = 0;
+               break;
+             case 1:
+               switch (data.<%= attr %>_multiIndex[0]) {
+                 case 0:
+                   switch (data.<%= attr %>_multiIndex[1]) {
+                     case 0:
+                       data.<%= attr %>[2] = ['猪肉绦虫', '吸血虫'];
+                       break;
+                     case 1:
+                       data.<%= attr %>[2] = ['蛔虫'];
+                       break;
+                     case 2:
+                       data.<%= attr %>[2] = ['蚂蚁', '蚂蟥'];
+                       break;
+                     case 3:
+                       data.<%= attr %>[2] = ['河蚌', '蜗牛', '蛞蝓'];
+                       break;
+                     case 4:
+                       data.<%= attr %>[2] = ['昆虫', '甲壳动物', '蛛形动物', '多足动物'];
+                       break;
+                   }
+                   break;
+                 case 1:
+                   switch (data.<%= attr %>_multiIndex[1]) {
+                     case 0:
+                       data.<%= attr %>[2] = ['鲫鱼', '带鱼'];
+                       break;
+                     case 1:
+                       data.<%= attr %>[2] = ['青蛙', '娃娃鱼'];
+                       break;
+                     case 2:
+                       data.<%= attr %>[2] = ['蜥蜴', '龟', '壁虎'];
+                       break;
+                   }
+                   break;
+               }
+               data.<%= attr %>_multiIndex[2] = 0;
+               break;
+           }
+           this.setData(data);
+         },
+      <% elsif options[:tag][index] == 'image' %>  
+        ChooseImage() {
+            let that = this;
+            let openid = wx.getStorageSync('openId')
+            wx.chooseImage({
+                count: 1, //默认9
+                sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album','camera'], //从相册选择album, 拍照camera
+                success: (res) => {
+                    wx.uploadFile({
+                        url: app.globalData.config.routes.img_upload,
+                        header: {
+                            'Accept': "*/*",
+                            'content-type': 'application/json' // 默认值
+                        },
+                        filePath: res.tempFilePaths[0],
+                        name: 'file',
+                        formData: {
+                            id: openid
+                        },
+                        success(result) {
+                            var data = JSON.parse(result.data)
+                            if (data.state == 'success') {
+                                that.setData({
+                                    imgList: that.data.imgList.concat(res.tempFilePaths[0]),
+                                    images: that.data.images.concat(data.url)
+                                })
+                            } else {
+                                wx.showToast({
+                                    title: '上传失败',
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+        },
+        ViewImage(e) {
+            wx.previewImage({
+                urls: this.data.imgList,
+                current: e.currentTarget.dataset.url
+            });
+        },
+        DelImg(e) {
+            wx.showModal({
+                content: '确定删除？',
+                cancelText: '取消',
+                confirmText: '确定',
+                success: res => {
+                    if (res.confirm) {
+                        this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+                        this.data.images.splice(e.currentTarget.dataset.index, 1);
+                        this.setData({
+                            imgList: this.data.imgList,
+                            images: this.data.images
+                        })
+                    }
+                }
+            })
+        },
+      <% elsif options[:tag][index] == 'radio' %>  
+        <%= attr %>RadioChange(e) {
+          const items = this.data.<%= attr %>
+          for (let i = 0, len = items.length; i < len; ++i) {
+             items[i].checked = items[i].value === e.detail.value
+          }
+          this.setData({
+             items
+          })
+        },
+      <% elsif options[:tag][index] == 'checkbox' %>  
+        <%= attr %>CheckBoxChange(e) {
+          const items = this.data.<%= attr %>
+          const values = e.detail.value
+          for (let i = 0, lenI = items.length; i < lenI; ++i) {
+            items[i].checked = false
+            for (let j = 0, lenJ = values.length; j < lenJ; ++j) {
+              if (items[i].value === values[j]) {
+                items[i].checked = true
+                break
+              }
+            }
+          }
+          this.setData({
+              items
+          })
+        },
+      <% elsif options[:tag][index] == 'switch' %>  
+        <%= attr %>Switch(e) {
+          this.setData({
+            <%= attr %>: e.detail.value
+          })
+        },
+      <% end %>
+    <% end %>
+
+    <% if @download %>
+      //初始化towerSwiper
+      towerSwiper(name) {
+        let list = this.data[name];
+        for (let i = 0; i < list.length; i++) {
+          list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+          list[i].mLeft = i - parseInt(list.length / 2)
+        }
+        this.setData({
+          swiperList: list
+        })
+      },
+      // towerSwiper触摸开始
+      towerStart(e) {
+        this.setData({
+          towerStart: e.touches[0].pageX
+        })
+      },
+      // towerSwiper计算方向
+      towerMove(e) {
+        this.setData({
+          direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
+        })
+      },
+      // towerSwiper计算滚动
+      towerEnd(e) {
+        let direction = this.data.direction;
+        let list = this.data.swiperList;
+        if (direction == 'right') {
+          let mLeft = list[0].mLeft;
+          let zIndex = list[0].zIndex;
+          for (let i = 1; i < list.length; i++) {
+            list[i - 1].mLeft = list[i].mLeft
+            list[i - 1].zIndex = list[i].zIndex
+          }
+          list[list.length - 1].mLeft = mLeft;
+          list[list.length - 1].zIndex = zIndex;
+          this.setData({
+            swiperList: list
+          })
+        } else {
+          let mLeft = list[list.length - 1].mLeft;
+          let zIndex = list[list.length - 1].zIndex;
+          for (let i = list.length - 1; i > 0; i--) {
+            list[i].mLeft = list[i - 1].mLeft
+            list[i].zIndex = list[i - 1].zIndex
+          }
+          list[0].mLeft = mLeft;
+          list[0].zIndex = zIndex;
+          this.setData({
+            swiperList: list
+          })
+        }
+      },
+    <% end %>
+
+    <% if @scss %>
+      cardSwiper(e) {
+        this.setData({
+          cardCur: e.detail.current
+        })
+      },
+    <% end %>
+
+    <% if @upload %>
+      tabSelect(e) {
+        this.setData({
+          TabCur: e.currentTarget.dataset.id,
+          scrollLeft: (e.currentTarget.dataset.id-1)*60
+        })
+      },
+    <% end %>
+
+    <% if @attrs.size > 0 %>
+      bindFormSubmit(e) {
+          let that = this
+          var openid = wx.getStorageSync('openId');
+          <% @attrs.each_with_index do |attr, index| %>
+            var <%= attr %> = that.data.<%= attr %>
+          <% end %>
+          var imgs = that.data.images
+
+          if (that.data.username.length == 0) {
+              wx.showToast({
+                  title: '姓名不能为空',
+                  icon: 'none',
+                  duration: 2000
+              })
+          } else if (imgs.length < 4) {
+              wx.showToast({
+                  title: '证件照不全',
+                  icon: 'none',
+                  duration: 2000
+              })
+          } else {
+              wx.showLoading({
+                  title: '数据保存中',
+              })
+              wx.request({
+                  url: app.globalData.config.routes.task_report_create,
+                  method: 'POST',
+                  header: {
+                      'Accept': "*/*",
+                      'content-type': 'application/json' // 默认值
+                  },
+                  data: {
+                      id: openid,
+                      <% @attrs.each_with_index do |attr, index| %>
+                        <%= attr %>: <%= attr %>,
+                      <% end %>
+                      imgs: imgs
+                  },
+                  success: function (res) {
+                      wx.hideLoading();
+                      var obj = res.data
+                      if (obj.state == 'success') {
+                          wx.showToast({
+                              title: '保存成功',
+                              duration: 3000,
+                              success: function () {
+                                  setTimeout(() => {
+                                      that.setData({
+                                      })
+                                  }, 3000);
+                              }
+                          })
+                      } else {
+                          wx.showToast({
+                              title: '保存失败',
+                              icon: 'none',
+                              duration: 2000
+                          })
+                      }
+                  },
+                  fail: function (e) {
+                      wx.hideLoading();
+                      wx.showToast({
+                          title: '网络错误',
+                          icon: 'none',
+                          duration: 2000
+                      })
+                  }
+              })
+          }
+      },
+    <% end %>
+
+    previewImage: function(e) {
+      wx.previewImage({
+        urls: e.currentTarget.dataset.urls,
+        current: e.currentTarget.dataset.url
+      })
+    },
+
+    pageBack() {
+        wx.navigateBack({
+            delta: 1
+        });
+    }
+});

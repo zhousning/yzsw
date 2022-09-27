@@ -1,0 +1,59 @@
+.container-fluid.px-0
+  %ul.border.bg-white.list-group.list-group-horizontal.pl-3.py-2
+    %li.list-group-item.border-0.pl-0.d-flex.flex-row
+      = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today-7, :min => Date.new(2019, 01, 01), :max => Date.today-1
+      %span
+        一
+      = date_field_tag 'end', nil, class: 'form-control ml-1', :value => Date.today, :min => Date.new(2019, 01, 01), :max => Date.today-1
+    %li.list-group-item.pl-0.border-0
+      %button.area-time-search.button.button-primary.button-small{:type => "button"}
+        查询 
+  .row.border.m-1.p-3.bg-white
+    .col-2.text-left
+      %label.checkbox-inline.mr-5
+        = check_box_tag 'select-all', nil 
+        = '全选'
+    - @factories.each do |f|
+      .col-2.text-left
+        %label.checkbox-inline.mr-5
+          = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
+          = f.name
+
+<script>
+function select_checkbox_all(select_all, checkbox_name) {
+$("#" + select_all).click(function() {
+flag = $(this).is(":checked");
+if (flag) {
+$("input[name='" + checkbox_name + "']").prop('checked', true);
+} else {
+$("input[name='" + checkbox_name + "']").prop('checked', false);
+}
+})
+}
+select_checkbox_all("select-all", "fcts")
+
+//与日期选择区间搭配时用这个函数
+function fct_date_event(table, url) {
+//var start = $("#start").val();
+//var end = $("#end").val();
+//var fcts = gon.fct;
+//$("input[name='select-all']").prop('checked',true);
+//$("input[name='fcts']").prop('checked',true);
+//
+//request_params = {start: start, end: end, fcts: fcts}
+//loadDataToBstpTable(table, url, request_params)
+
+$(".area-time-search").on('click', function(e) {
+var start = $("#start").val();
+var end = $("#end").val();
+var fcts = "";
+var check_boxes = $("input[name='fcts']:checked");
+$.each(check_boxes, function(){
+fcts += $(this).val() + ","
+});
+
+request_params = {start: start, end: end, fcts: fcts}
+loadDataToBstpTable(table, url, request_params)
+})
+}
+</script>

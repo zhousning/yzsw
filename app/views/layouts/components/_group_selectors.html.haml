@@ -1,0 +1,13 @@
+%select#fct.form-control{:name => 'device', :value => '2'}
+
+
+<script>
+
+function loadSelectData(url) {
+$.get(url).done(function (obj) {
+$("#fct").select2({
+data: obj.results
+});
+})
+}
+</script>

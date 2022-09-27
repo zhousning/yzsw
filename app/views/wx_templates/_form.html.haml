@@ -1,0 +1,177 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @template do |f|
+        - if @template.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@template.errors.count, "error")} prohibited this buyer from being saved:"
+            %ul
+              - @template.errors.full_messages.each do |msg|
+                %li= msg
+      
+        .form-group.row
+          = f.label Setting.wx_templates.name, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            = f.text_field :name, :class => "form-control"
+
+        .form-group.row
+          = f.label Setting.wx_templates.cn_name, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            = f.text_field :cn_name, :class => "form-control"
+
+        .form-group.row
+          = f.label Setting.wx_templates.one_image, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            = f.text_field :one_image, :class => "form-control", :value => "dialog image radio checkbox"
+
+        .form-group.row
+          = f.label Setting.wx_templates.one_attachment, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            = f.text_field :one_attachment, :class => "form-control", :placeholder => "多个属性间用空格如note typora"
+
+          
+        .form-group.row
+          = f.label Setting.wx_templates.image, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :image, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :image, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+
+        .form-group.row
+          = f.label Setting.wx_templates.attachment, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :attachment, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :attachment, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+
+        .form-group.row
+          = f.label Setting.wx_templates.index, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :index, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :index, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.new, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :new, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :new, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.edit, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :edit, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :edit, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.show, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :show, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :show, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.form, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :form, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :form, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+            
+
+          
+        .form-group.row
+          = f.label Setting.wx_templates.js, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :js, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :js, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.scss, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :scss, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :scss, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+            
+        .form-group.row
+          = f.label Setting.wx_templates.download, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :download, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :download, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.upload, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :upload, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :upload, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+          
+        .form-group.row
+          = f.label Setting.wx_templates.admin, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-9
+            .form-check.form-check-inline
+              = f.radio_button :admin, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :admin, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+      
+        .form-group.row
+          = f.label Setting.wx_templates.current_user, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-3
+            .form-check.form-check-inline
+              = f.radio_button :current_user, Setting.systems.status_en_yes, :class => "form-check-input", :checked => "checked"
+              = f.label Setting.systems.status_yes, :class => "form-check-label"
+            .form-check.form-check-inline
+              = f.radio_button :current_user, Setting.systems.status_en_no, :class => "form-check-input"
+              = f.label Setting.systems.status_no, :class => "form-check-label"
+      
+      
+        .form-group.row
+          = f.label "属性", :class => "col-sm-3 col-form-label text-right"
+          .col-sm-9
+            = f.fields_for :wx_natures do |wx_nature|
+              = render 'wx_nature_fields', f: wx_nature 
+            .links
+              = link_to_add_association "添加", f, :wx_natures, :class => "button button-primary"
+      
+
+        .form-group.row
+          .col-sm-3.offset-sm-2
+            = f.submit '保存', :class => "button button-action"

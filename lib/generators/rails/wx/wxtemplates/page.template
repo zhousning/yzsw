@@ -1,0 +1,671 @@
+<cu-custom bgColor="bg-myblue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">人员登记</view>
+</cu-custom>
+
+<scroll-view scroll-x>
+    <!-- bar
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class='action'>
+        <text class='cuIcon-titles text-orange '></text> 动态类卡片
+      </view>
+      <view class='action'>
+        <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
+      </view>
+    </view> -->
+
+    <!-- 案例卡片 -->
+    <% if @edit %>
+      <!-- 如果不需要左右边界把no-card去掉 -->
+      <view class="cu-card case no-card">
+        <view class="cu-item shadow">
+          <view class="image">
+            <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image>
+            <view class="cu-tag bg-blue">史诗</view>
+            <view class="cu-bar bg-shadeBottom">
+              <text class="text-cut">不再受凡人的枷锁遏制。</text>
+            </view>
+          </view>
+          <view class="cu-list menu-avatar">
+            <view class="cu-item">
+              <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+              <view class="content flex-sub">
+                <view class="text-grey">正义天使 凯尔</view>
+                <view class="text-gray text-sm flex justify-between">
+                  十天前
+                  <view class="text-gray text-sm">
+                    <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+                    <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+                    <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    <% end %>
+
+    <!-- 消息卡片 -->
+    <% if @show %>
+      <!-- 如果不需要左右边界把no-card去掉 -->
+      <view class="cu-card dynamic no-card">
+        <view class="cu-item shadow">
+          <view class="cu-list menu-avatar">
+            <view class="cu-item">
+              <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+              <view class="content flex-sub">
+                <view>凯尔</view>
+                <view class="text-gray text-sm flex justify-between">
+                  2019年12月3日
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="text-content">
+            将有我来终结！
+          </view>
+          <view class="grid flex-sub padding-lr col-3 grid-square">
+            <view class="bg-img" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);" wx:for="{{9}}" wx:key="{{index}}">
+            <!-- <view class="bg-img" data-url='{{img}}' data-urls="{{rept.imgs}}" bindtap="previewImage" style="background-image:url({{img}});" wx:for="{{rept.imgs}}" wx:for-item="img" wx:key="*this"> -->
+            </view>
+          </view>
+          <view class="text-gray text-sm text-right padding">
+            <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+            <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+            <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+          </view>
+      
+          <view class="cu-list menu-avatar comment solids-top">
+            <view class="cu-item">
+              <view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+              <view class="content">
+                <view class="text-grey">莫甘娜</view>
+                <view class="text-gray text-content text-df">
+                  凯尔，你被自己的光芒变的盲目。
+                </view>
+                <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+                  <view class="flex">
+                    <view>凯尔：</view>
+                    <view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+                  </view>
+                </view>
+                <view class="margin-top-sm flex justify-between">
+                  <view class="text-gray text-df">2018年12月4日</view>
+                  <view>
+                    <text class="cuIcon-appreciatefill text-red"></text>
+                    <text class="cuIcon-messagefill text-gray margin-left-sm"></text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    <% end %>
+
+    <!-- 文章卡片 -->
+    <% if @form %>
+      <!-- 如果不需要左右边界把no-card去掉 -->
+      <view class="cu-card article no-card">
+        <view class="cu-item shadow">
+          <view class="title">
+            <view class="text-cut">见证至高的烈火吧。</view>
+          </view>
+          <view class="content">
+            <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+            <view class="desc">
+              <view class="text-content"> 因脆弱而自由！</view>
+              <view>
+                <view class="cu-tag bg-red light sm round">正义天使</view>
+                <view class="cu-tag bg-green light sm round">史诗</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    <% end %>
+
+  <% @one_enclosure.each do |e| %>
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-orange "></text> 对话窗口
+      </view>
+      <view class="action">
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="DialogModal">Dialog</button>
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="Image">Image</button>
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="RadioModal">Radio</button>
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="ChooseModal">Choose</button>
+      </view>
+    </view>
+
+    <% if e == 'dialog' %>
+      <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+        <view class="cu-dialog">
+          <view class="cu-bar bg-white justify-end">
+            <view class="content">Modal标题</view>
+            <view class="action" bindtap="hideModal">
+              <text class="cuIcon-close text-red"></text>
+            </view>
+          </view>
+          <view class="padding-xl">
+            Modal 内容。
+          </view>
+          <view class="cu-bar bg-white">
+            <view class="action margin-0 flex-sub text-green " bindtap="hideModal">
+              <text class="cuIcon-moneybag"></text>微信支付</view>
+            <view class="action margin-0 flex-sub text-green solid-left" bindtap="hideModal">取消</view>
+            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">确定</view>
+          </view>
+        </view>
+      </view>
+    <% elsif e == 'image' %>
+      <view class="cu-modal {{modalName=='Image'?'show':''}}">
+        <view class="cu-dialog">
+          <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+            <view class="cu-bar justify-end text-white">
+              <view class="action" bindtap="hideModal">
+                <text class="cuIcon-close "></text>
+              </view>
+            </view>
+          </view>
+          <view class="cu-bar bg-white">
+            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">我知道了</view>
+          </view>
+        </view>
+      </view>
+    <% elsif e == 'radio' %>
+      <view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+          <radio-group class="block">
+            <view class="cu-list menu text-left">
+              <view class="cu-item" wx:for="{{5}}" wx:key>
+                <label class="flex justify-between align-center flex-sub">
+                  <view class="flex-sub">Item {{index +1}}</view>
+                  <radio class="round"></radio>
+                </label>
+              </view>
+            </view>
+          </radio-group>
+        </view>
+      </view>
+    <% elsif e == 'checkbox' %>
+      <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+          <view class="cu-bar bg-white">
+            <view class="action text-blue" bindtap="hideModal">取消</view>
+            <view class="action text-green" bindtap="hideModal">确定</view>
+          </view>
+      
+          <view class="grid col-3 padding-sm">
+            <view wx:for="{{checkbox}}" class="padding-xs" wx:key="{{index}}">
+              <button class="cu-btn orange lg block {{item.checked?'bg-orange':'line-orange'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}"> {{item.name}}
+                <view class="cu-tag sm round {{item.checked?'bg-white text-orange':'bg-orange'}}" wx:if="{{item.hot}}">HOT</view>
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    <% end %>
+  <% end %>
+
+  <% if @attachment %>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+           <view class="action">
+               <text class="cuIcon-title text-orange "></text> 消息列表
+           </view>
+    </view>
+    <view class="cu-list menu-avatar">
+        <view class="cu-item">
+            <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+            <view class="content">
+                <view class="text-grey">凯尔</view>
+                <view class="text-gray text-sm flex">
+                    <text class="text-cut">
+                        <text class="cuIcon-infofill text-red  margin-right-xs"></text> 我已天理为凭
+                    </text>
+                </view>
+            </view>
+            <view class="action">
+                <view class="text-grey text-xs">22:20</view>
+                <view class="cu-tag round bg-grey sm">5</view>
+            </view>
+        </view>
+        <view class="cu-item">
+            <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+                <view class="cu-tag badge">99+</view>
+            </view>
+            <view class="content">
+                <view class="text-grey">
+                    <text class="text-cut">瓦洛兰之盾-塔里克</text>
+                    <view class="cu-tag round bg-orange sm">战士</view>
+                </view>
+                <view class="text-gray text-sm flex">
+                    <text class="text-cut">塔里克是保护者星灵</text>
+                </view>
+            </view>
+            <view class="action">
+                <view class="text-grey text-xs">22:20</view>
+                <view class="cuIcon-notice_forbid_fill text-gray"></view>
+            </view>
+        </view>
+        <view class="cu-item ">
+            <view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+            <view class="content">
+                <view class="text-pink">
+                    <text class="text-cut">莫甘娜</text>
+                </view>
+                <view class="text-gray text-sm flex">
+                    <text class="text-cut">凯尔，你被自己的光芒变的盲目！</text>
+                </view>
+            </view>
+            <view class="action">
+                <view class="text-grey text-xs">22:20</view>
+            </view>
+            <view class="cu-item cur">
+                <view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big81020.jpg);">
+                    <view class="cu-tag badge"></view>
+                </view>
+                <view class="content">
+                    <view>
+                        <text class="text-cut">瓦罗兰大陆-睡衣守护者-新手保护营</text>
+                        <view class="cu-tag round bg-orange sm">6人</view>
+                    </view>
+                   <view class="text-gray text-sm flex">
+                        <text class="text-cut"> 伊泽瑞尔：<text class="cuIcon-locationfill text-orange margin-right-xs"></text> 传送中...</text>
+                    </view>
+                </view>
+                <view class="action">
+                    <view class="text-grey text-xs">22:20</view>
+                    <view class="cuIcon-notice_forbid_fill text-gray"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+  <% end %>
+
+  <% if @index %>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-orange "></text> 宫格列表
+      </view>
+    </view>
+    <view class="cu-list grid col-{{gridCol}} {{gridBorder?'':'no-border'}}">
+      <view class="cu-item" wx:for="{{iconList}}" wx:key wx:if="{{index<gridCol*2}}">
+        <view class="cuIcon-{{item.icon}} text-{{item.color}}">
+          <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+            <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+          </view>
+        </view>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  <% end %>
+
+  <% if @new  %>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-orange "></text> 菜单列表
+      </view>
+    </view>
+    <view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <text class="cuIcon-circlefill text-grey"></text>
+          <text class="text-grey">图标 + 标题</text>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <image src="/images/logo.png" class="png" mode="aspectFit"></image>
+          <text class="text-grey">图片 + 标题</text>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <button class="cu-btn content" open-type="contact">
+          <text class="cuIcon-btn text-olive"></text>
+          <text class="text-grey">Open-type 按钮</text>
+        </button>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <navigator class="content" hover-class="none" url="../list/list" open-type="redirect">
+          <text class="cuIcon-discoverfill text-orange"></text>
+          <text class="text-grey">Navigator 跳转</text>
+        </navigator>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <text class="cuIcon-emojiflashfill text-pink"></text>
+          <text class="text-grey">头像组</text>
+        </view>
+        <view class="action">
+          <view class="cu-avatar-group">
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10004.jpg);"></view>
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10003.jpg);"></view>
+          </view>
+          <text class="text-grey text-sm">4 人</text>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <text class="cuIcon-btn text-green"></text>
+          <text class="text-grey">按钮</text>
+        </view>
+        <view class="action">
+          <button class="cu-btn round bg-green shadow">
+            <text class="cuIcon-upload"></text> 上传</button>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <text class="cuIcon-tagfill text-red"></text>
+          <text class="text-grey">标签</text>
+        </view>
+        <view class="action">
+          <view class="cu-tag round bg-orange light">音乐</view>
+          <view class="cu-tag round bg-olive light">电影</view>
+          <view class="cu-tag round bg-blue light">旅行</view>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="content">
+          <text class="cuIcon-warn text-green"></text>
+          <text class="text-grey">文本</text>
+        </view>
+        <view class="action">
+          <text class="text-grey text-sm">小目标还没有实现！</text>
+        </view>
+      </view>
+      <view class="cu-item">
+        <view class="content padding-tb-sm">
+          <view>
+            <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> 多行Item</view>
+          <view class="text-gray text-sm">
+            <text class="cuIcon-infofill margin-right-xs"></text> 小目标还没有实现！</view>
+        </view>
+        <view class="action">
+          <switch class="switch-sex sm" bindchange="switchSex"></switch>
+        </view>
+      </view>
+    </view>
+  <% end %>
+
+  <!-- 全屏轮播 -->
+  <% if @js %>
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-pink"></text> 全屏轮播
+      </view>
+    </view>
+    <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key>
+        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+        <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+      </swiper-item>
+    </swiper>
+  <% end %>
+
+  <!-- 卡片轮播 -->
+  <% if @scss %>
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-pink"></text> 卡片式轮播
+      </view>
+    </view>
+    <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+      <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+        <view class="swiper-item">
+          <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+          <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+        </view>
+      </swiper-item>
+    </swiper>
+  <% end %>
+
+  <!-- 堆叠轮播 -->
+  <% if @download %>
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-pink"></text> 堆叠式轮播
+      </view>
+    </view>
+    <view class="tower-swiper" bindtouchmove="towerMove" bindtouchstart="towerStart" bindtouchend="towerEnd">
+      <view class="tower-item {{item.zIndex==1?'none':''}}" wx:for="{{swiperList}}" wx:key style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
+        <view class="swiper-item">
+          <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+          <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+        </view>
+      </view>
+    </view>
+  <% end %>
+
+  <% if @upload %>
+    <scroll-view scroll-x class="bg-cyan nav">
+       <view class="flex text-center">
+         <view class="cu-item flex-sub {{index==TabCur?'text-white cur':''}}" wx:for="{{tabs}}" wx:key="{{item.id}}" bindtap="tabSelect" data-id="{{item.id}}">
+             <text class="cuIcon-camerafill"></text> {{item.title}}
+         </view>
+       </view>
+     </scroll-view>
+
+     <pend wx:if="{{TabCur==0}}"></pend>
+     <process wx:if="{{TabCur==1}}"></process>
+     <confirm wx:if="{{TabCur==2}}"></confirm>
+     <complete wx:if="{{TabCur==3}}"></complete>
+  <% end %>
+
+  <% if @current_user %>
+    <view class="cu-timeline">
+      <view class="cu-time">昨天</view>
+      <view class="cu-item cur cuIcon-noticefill">
+        <view class="content bg-green shadow-blur">
+          <text>22:22</text> 【广州市】快件已到达地球
+        </view>
+      </view>
+      <view class="cu-item text-red cuIcon-attentionforbidfill">
+        <view class="content bg-red shadow-blur">
+          这是第一次
+        </view>
+      </view>
+      <view class="cu-item text-grey cuIcon-evaluate_fill">
+        <view class="content bg-grey shadow-blur">
+          我家的铲屎官走了这么久。
+        </view>
+      </view>
+      <view class="cu-item text-blue">
+        <view class="bg-blue content">
+          <text>20:00</text> 【月球】快件已到达月球
+        </view>
+        <view class="bg-cyan content">
+          <text>10:00</text> 【银河系】快件已到达银河系
+        </view>
+      </view>
+    </view>
+    
+    <view class="cu-timeline">
+      <view class="cu-time">06-17</view>
+      <view class="cu-item">
+        <view class="content">
+          <text>01:30</text> 【喵星】 MX-12138 已揽收，准备发往银河系
+        </view>
+      </view>
+    </view>
+    
+    <view class="cu-timeline">
+      <view class="cu-time">06-17</view>
+      <view class="cu-item">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">上午</view>
+            <view class="cu-tag line-cyan">10:00</view>
+          </view>
+          <view class="margin-top">到足足有三天</view>
+        </view>
+      </view>
+      <view class="cu-item text-blue">
+        <view class="bg-blue shadow-blur content">
+          <view class="cu-list menu-avatar radius">
+            <view class="cu-item">
+              <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+              <view class="content">
+                <view class="text-grey">文晓港</view>
+                <view class="text-gray text-sm">
+                  <text class="cuIcon-infofill text-red"></text> 消息未送达</view>
+              </view>
+              <view class="action">
+                <view class="text-grey text-xs">22:20</view>
+                <view class="cu-tag round bg-grey sm">5</view>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);">
+                <view class="cu-tag badge">99+</view>
+              </view>
+              <view class="content">
+                <view class="text-grey">文晓港
+                  <view class="cu-tag round orange sm">SVIP</view>
+                </view>
+                <view class="text-gray text-sm">
+                  <text class="cuIcon-redpacket_fill text-red"></text> 收到红包</view>
+              </view>
+              <view class="action">
+                <view class="text-grey text-xs">22:20</view>
+                <text class="cuIcon-notice_forbid_fill text-gray"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  <% end %>
+  
+  <% if @admin %>
+  <% end %>
+
+  <% if @attrs.size > 0 %>
+    <form bindsubmit="bindFormSubmit">
+        <% @attrs.each_with_index do |attr, index| %>
+          <% if options[:tag][index] == 'text' %>
+            <view class="cu-form-group">
+                <view class="title"><%= options[:label][index] %></view>
+                <input placeholder="<%= options[:label][index] %>" name="<%= attr %>" bindinput="<%= attr %>Input" value="{{<%= attr %>}}"/>
+            </view>
+          <% elsif options[:tag][index] == 'text_icon' %>
+            <view class="cu-form-group">
+                <view class="title"><%= options[:label][index] %></view>
+                <input placeholder="<%= options[:label][index] %>" name="<%= attr %>" bindinput="<%= attr %>Input" value="{{<%= attr %>}}"/>
+                <text class="cuIcon-locationfill text-orange"></text>
+            </view>
+          <% elsif options[:tag][index] == 'text_btn' %>
+            <view class="cu-form-group">
+                <view class="title"><%= options[:label][index] %></view>
+                <input placeholder="<%= options[:label][index] %>" name="<%= attr %>" bindinput="<%= attr %>Input" value="{{<%= attr %>}}"/>
+                <button class="cu-btn bg-green shadow">验证码</button>
+            </view>
+          <% elsif options[:tag][index] == 'textarea' %>  
+            <view class="cu-form-group ">
+                <textarea maxlength="-1" bindinput="<%= attr %>Input" placeholder="<%= options[:label][index] %>" value="{{<%= attr %>}}"></textarea>
+            </view>
+          <% elsif options[:tag][index] == 'picker' %>  
+            <view class="cu-form-group ">
+			        <view class="title"><%= options[:label][index] %></view>
+			        <picker bindchange="<%= attr %>Change" value="{{<%= attr %>_index}}" range="{{<%= attr %>}}">
+			        	<view class="picker">
+			        		{{<%= attr %>_index?<%= attr %>[<%= attr %>_index]:'请选择'}}
+			        	</view>
+			        </picker>
+            </view>
+          <% elsif options[:tag][index] == 'multi_picker' %>  
+            <view class="cu-form-group">
+               <view class="title"><%= options[:label][index] %></view>
+               <picker mode="multiSelector" bindchange="<%= attr %>MultiChange" bindcolumnchange="<%= attr %>MultiColumnChange" value="{{<%= attr %>_multiIndex}}" range="{{<%= attr %>}}">
+                 <view class="picker">
+                   {{<%= attr %>[0][<%= attr %>_multiIndex[0]]}}，{{<%= attr %>[1][<%= attr %>_multiIndex[1]]}}，{{<%= attr %>[2][<%= attr %>_multiIndex[2]]}}
+                 </view>
+               </picker>
+            </view>
+          <% elsif options[:tag][index] == 'time' %>  
+            <view class="cu-form-group ">
+            <view class="title"><%= options[:label][index] %></view>
+              <picker mode="time" value="{{<%= attr %>}}" start="09:01" end="21:01" bindchange="<%= attr %>Change">
+                <view class="picker">
+                  {{<%= attr %>}}
+                </view>
+              </picker>
+            </view>
+          <% elsif options[:tag][index] == 'date' %>  
+            <view class="cu-form-group ">
+			        <view class="title"><%= options[:label][index] %></view>
+              <picker mode="date" value="{{<%= attr %>}}" start="2020-01-01" end="2025-01-01" bindchange="<%= attr %>Change">
+                <view class="picker">
+                  {{<%= attr %>}}
+                </view>
+              </picker>
+            </view>
+          <% elsif options[:tag][index] == 'address' %>  
+            <view class="cu-form-group ">
+			        <view class="title"><%= options[:label][index] %></view>
+              <picker mode="region" bindchange="<%= attr %>Change" value="{{<%= attr %>}}" custom-item="{{customItem}}">
+                <view class="picker">
+                  {{<%= attr %>[0]}}，{{<%= attr %>[1]}}，{{<%= attr %>[2]}}
+                </view>
+              </picker>
+            </view>
+          <% elsif options[:tag][index] == 'image' %>  
+            <view class="cu-bar bg-white ">
+                <view class="action">
+                <%= options[:label][index] %>        {{imgList.length}}/4
+                </view>
+            </view>
+
+            <view class="cu-form-group">
+                <view class="grid col-4 grid-square flex-sub">
+                    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+                        <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                        <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                            <text class="cuIcon-close"></text>
+                        </view>
+                    </view>
+                    <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+                        <text class="cuIcon-cameraadd"></text>
+                    </view>
+                </view>
+            </view>
+          <% elsif options[:tag][index] == 'radio' %>  
+            <view class="cu-form-group">
+                <view class="title"><%= options[:label][index] %></view>
+                <radio-group bindchange="<%= attr %>RadioChange" name="<%= attr %>">
+                    <label class="" wx:for="{{<%= attr %>}}" wx:key="{{item.value}}" style="margin-right:80rpx;">
+                        <radio style="margin-right:10rpx;" value="{{item.value}}" checked="{{item.checked}}" />{{item.text}}
+                    </label>
+                </radio-group>
+            </view>
+          <% elsif options[:tag][index] == 'checkbox' %>
+            <view class="cu-form-group ">
+			        <view class="title"><%= options[:label][index] %></view>
+              <checkbox-group bindchange="{{<%= attr %>}}CheckBoxChange" class="cu-list menu sm-border card-menu margin">
+                <view class="cu-item" wx:for="{{<%= attr %>}}" wx:key="{{item.value}}">
+                  <label class="action content">
+                    <checkbox value="{{item.value}}" checked="{{item.checked}}" />
+                      {{item.name}}
+                  </label>
+                </view>
+              </checkbox-group>
+            </view>
+          <% elsif options[:tag][index] == 'switch' %>  
+            <view class="cu-form-group ">
+			        <view class="title"><%= options[:label][index] %></view>
+              <switch class='red sm' checked='{{<%= attr %>}}' bindchange='<%= attr %>Switch'></switch>
+            </view>
+          <% end %>
+        <% end %>
+
+        <view class="padding-xl">
+          <button form-type="submit" class="cu-btn bg-blue shadow-blur block margin-tb-sm lg">提交</button>
+        </view>
+    </form>
+  <% end %>
+
+    <view class='cu-tabbar-height'></view>
+
+</scroll-view>

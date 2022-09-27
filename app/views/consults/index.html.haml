@@ -1,0 +1,36 @@
+- provide(:title, t('.title'))
+
+.container.mt-3.py-3
+  .row
+    #sidebar-list.col-12.col-md-3.min-height-info{:style => "background: url('#{image_url('sidebar-bg.jpg')}') no-repeat;background-size: cover;"}
+      %ul.list-group.list-group-flush.pt-3
+        -#
+          = link_to Setting.questions.label, consults_path, :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+
+        %a.list-group-item.list-group-item-action{:href => "#", "data-target" => "#newModal", "data-toggle" => "modal", :type => "button" }
+          %i.fa.fa-edit.fa-2x.mr-3
+          = Setting.questions.label
+            
+
+    #sidebar-content.ml-4.col-12.col-md-8.bg-white.min-height-900.pt-3
+      %ul.list-group.list-group-flush
+        - @questions.each_with_index do |question, index|
+          %li.list-group-item.px-0.border-0
+            %p
+              = question.content
+              %small.pull-right
+                = question.created_at.strftime('%Y-%m-%d')
+            - question.answers.each do |answer|
+              %p.answer-title
+                = '回复: ' + answer.content
+      .row.mt-3
+        .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center
+          = paginate @questions, window: 2, left: 1, right: 1
+
+
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      .modal-body
+        = render 'consults/form'

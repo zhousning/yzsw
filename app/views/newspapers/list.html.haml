@@ -1,0 +1,36 @@
+- provide(:title, @frst.name)
+
+.container.mt-3.py-3
+  .row.my-3
+    .col-12.px-0
+      - if @frst.header  
+        = image_tag @frst.header_url, :class => 'w-100'
+  .row
+    #sidebar-list.col-12.col-md-3.min-height-info{:style => "background: url('#{@frst.sidebar.blank? ? image_url('sidebar-bg.jpg') : @frst.sidebar_url}') no-repeat;"}
+      %ul.list-group.list-group-flush.pt-3
+        - @secds.each do |secd|
+          - if secd.showstyle == Setting.secds.sindex
+            = link_to secd.name, list_secd_newspapers_path(idencode(secd.id)), :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+          - elsif secd.showstyle == Setting.secds.sshow
+            - if secd.articles.last.nil? 
+              = link_to secd.name, "javascript:void(0)", :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+            - else
+              = link_to secd.name, info_secd_newspaper_path(idencode(secd.id), idencode(secd.articles.last.id)), :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+
+    #sidebar-content.col-12.col-md-9.bg-white.min-height-900.pt-3
+      %ul.list-group.list-group-flush
+        - @articles.each_with_index do |article, index|
+          = link_to info_secd_newspaper_path(idencode(@secd.id), idencode(article.id)), :class => "list-group-item list-group-item-action" do
+            .row
+              .col-7.col-sm-10.text-truncate
+                %p.mb-0.text-truncate
+                  = article.title
+              .col-5.col-sm-2.text-right
+                %p.text-muted.font-weight-light.mb-0
+                  - if article.pdt_date
+                    = article.pdt_date.strftime('%Y-%m-%d')
+                  - else
+                    = article.created_at.strftime('%Y-%m-%d')
+      .row.mt-3
+        .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center
+          = paginate @articles, window: 2, left: 1, right: 1

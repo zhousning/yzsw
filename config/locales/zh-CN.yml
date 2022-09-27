@@ -1,0 +1,400 @@
+zh-CN:
+  time:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  activerecord:
+    errors:
+      models:
+        inf_qlty:
+          attributes:
+            cod: 
+              blank: '在线COD必填, 没有值请填 0'
+
+  layouts:
+    application:
+      site_title: "兖州公用水务有限公司"
+    application_control:
+      site_title: "兖州公用水务有限公司"
+    application_control_map:
+      site_title: "兖州公用水务有限公司"
+    application_mobile:
+      site_title: "兖州公用水务有限公司"
+    application_home:
+      site_title: "兖州公用水务有限公司"
+    application_no_header:
+      site_title: "兖州公用水务有限公司"
+    application_zchome:
+      site_title: "兖州公用水务有限公司"
+  views:
+      pagination:
+        first: "首页"
+        last: "尾页"
+        previous: "上一页"
+        next: "下一页"
+        truncate: "…"
+      helpers:
+        page_entries_info:
+          one_page:
+            display_entries:
+              zero: "没有任何 %{entry_name}"
+              one: "显示 <b>1</b> 个 %{entry_name}"
+              other: "显示 <b>全部 %{count}</b> 个 %{entry_name}"
+          more_pages:
+            display_entries: "显示 <b>%{total}</b> 个 %{entry_name} 中的第 <b>%{first} - %{last}</b> 个"
+
+  home:
+    index:
+      title: "首页"
+    help:
+      title: "帮助中心"
+
+  controls:
+    index:
+      title: "控制面板"
+
+  users:
+    control:
+      title: "个人中心"
+    manage:
+      title: "管理用户"
+    index:
+      title: "用户列表"
+    show:
+      title: "用户详情"
+    edit:
+      title: "编辑用户"
+    registrations:
+      new:
+        title: "用户注册"
+    confirmations:
+      new:
+        title: "重新发送邮件"
+    sessions:
+      new:
+        title: "用户登录"
+    passwords:
+      forget:
+        title: "找回密码"
+    binding:
+      title: "绑定帐号"
+    sendmail:
+      title: "邮件已发送"
+    confirm:
+      title: "邮箱已确认"
+    agreement:
+      title: "用户协议"
+    center: 
+      title: 个人中心
+    mobile_authc_new:
+      title: 实名认证 
+    mobile_authc_status:
+      title: 实名认证状态 
+    level:
+      title: 等级 
+
+  roles:
+    manage:
+      title: "管理角色"
+    index:
+      title: "角色列表"
+    new:
+      title: "新建角色"
+    show:
+      title: "角色详情"
+    edit:
+      title: "编辑角色"
+
+  templates:
+    index: 
+      title: 模板列表
+    new: 
+      title: 新建模板
+    edit:
+      title: 编辑模板
+    show:
+      title: 查看模板
+    destroy:
+      title: 删除模板
+
+  notices:
+    index:
+      title: "公告列表"
+    new:
+      title: "新建公告"
+    show:
+      title: "公告详情"
+    edit:
+      title: "编辑公告"
+    mobile_index:
+      title: "公告列表"
+    mobile_show:
+      title: "公告详情"
+  trees:
+    index:
+      title:
+        兖州公用水务有限公司
+  authorities:
+    roles:
+      manage:
+        title: "管理角色"
+    templates:
+      manage:
+        title: 管理模板
+  ocrs:
+    index:
+      title: 人工智能工具箱 
+  factories:
+    edit:
+      title: 厂区-编辑厂区信息
+    update:
+      title: 厂区-编辑厂区信息
+  reports:
+    index:
+      title: 报表
+    mth_report_show:
+      title: 查看报表
+    day_report:
+      title: 日报表
+    mth_report:
+      title: 月报表
+    xls_day_download:
+      title: 下载excel日报表
+    xls_mth_download:
+      title: 下载excel月报表
+  workers:
+    index:
+      title: 工人列表  
+    new:
+      title: 新建工人
+    create:
+      title: 新建工人
+    edit:
+      title: 编辑工人
+    update:
+      title: 编辑工人
+    show:
+      title: 工人详情 
+    destroy:
+      title: 删除工人 
+  wxtools:
+    index:
+      title: 微信公众号工具列表  
+    new:
+      title: 新建微信公众号工具
+    create:
+      title: 新建微信公众号工具
+    edit:
+      title: 编辑微信公众号工具
+    update:
+      title: 编辑微信公众号工具
+    show:
+      title: 微信公众号工具详情 
+    destroy:
+      title: 删除微信公众号工具 
+  spiders:
+    index:
+      title: 爬虫列表  
+    new:
+      title: 新建爬虫
+    create:
+      title: 新建爬虫
+    edit:
+      title: 编辑爬虫
+    update:
+      title: 编辑爬虫
+    show:
+      title: 爬虫详情 
+    destroy:
+      title: 删除爬虫 
+  showrooms:
+    index:
+      title: 企业展厅列表  
+    new:
+      title: 新建企业展厅
+    create:
+      title: 新建企业展厅
+    edit:
+      title: 编辑企业展厅
+    update:
+      title: 编辑企业展厅
+    show:
+      title: 企业展厅详情 
+    destroy:
+      title: 删除企业展厅 
+  home_settings:
+    index:
+      title: 首页版块设置列表  
+    new:
+      title: 新建首页版块设置
+    create:
+      title: 新建首页版块设置
+    edit:
+      title: 编辑首页版块设置
+    update:
+      title: 编辑首页版块设置
+    show:
+      title: 首页版块设置详情 
+    destroy:
+      title: 删除首页版块设置 
+  home_contents:
+    index:
+      title: 首页内容列表  
+    new:
+      title: 新建首页内容
+    create:
+      title: 新建首页内容
+    edit:
+      title: 编辑首页内容
+    update:
+      title: 编辑首页内容
+    show:
+      title: 首页内容详情 
+    destroy:
+      title: 删除首页内容 
+  frsts:
+    index:
+      title: 类目列表  
+    new:
+      title: 新建类目
+    create:
+      title: 新建类目
+    edit:
+      title: 编辑类目
+    update:
+      title: 编辑类目
+    show:
+      title: 类目详情 
+    destroy:
+      title: 删除类目 
+  carousels:
+    index:
+      title: 走马灯列表  
+    new:
+      title: 新建走马灯
+    create:
+      title: 新建走马灯
+    edit:
+      title: 编辑走马灯
+    update:
+      title: 编辑走马灯
+    show:
+      title: 走马灯详情 
+    destroy:
+      title: 删除走马灯 
+  articles:
+    index:
+      title: 文章列表  
+    new:
+      title: 新建文章
+    create:
+      title: 新建文章
+    edit:
+      title: 编辑文章
+    update:
+      title: 编辑文章
+    show:
+      title: 文章详情 
+    destroy:
+      title: 删除文章 
+  newspapers:
+    list:
+      title: 文章列表  
+    info:
+      title: 文章
+  consults:
+    index:
+      title: 留言反馈列表  
+    new:
+      title: 新建留言反馈
+    create:
+      title: 新建留言反馈
+    edit:
+      title: 编辑留言反馈
+    update:
+      title: 编辑留言反馈
+    show:
+      title: 留言反馈详情 
+    destroy:
+      title: 删除留言反馈 
+  engines:
+    index:
+      title: 引擎配置列表  
+    new:
+      title: 新建引擎配置
+    create:
+      title: 新建引擎配置
+    edit:
+      title: 编辑引擎配置
+    update:
+      title: 编辑引擎配置
+    show:
+      title: 引擎配置详情 
+    destroy:
+      title: 删除引擎配置 
+  matters:
+    index:
+      title: 办事项目列表  
+    new:
+      title: 新建办事项目
+    create:
+      title: 新建办事项目
+    edit:
+      title: 编辑办事项目
+    update:
+      title: 编辑办事项目
+    show:
+      title: 办事项目详情 
+    destroy:
+      title: 删除办事项目 
+  shutters:
+    index:
+      title: 小轮播列表  
+    new:
+      title: 新建小轮播
+    create:
+      title: 新建小轮播
+    edit:
+      title: 编辑小轮播
+    update:
+      title: 编辑小轮播
+    show:
+      title: 小轮播详情 
+    destroy:
+      title: 删除小轮播 
+  positions:
+    index:
+      title: 地图点位列表  
+    new:
+      title: 新建地图点位
+    create:
+      title: 新建地图点位
+    edit:
+      title: 编辑地图点位
+    update:
+      title: 编辑地图点位
+    show:
+      title: 地图点位详情 
+    destroy:
+      title: 删除地图点位 
+  questions:
+    index:
+      title: 留言反馈列表  
+    new:
+      title: 新建留言反馈
+    create:
+      title: 新建留言反馈
+    edit:
+      title: 编辑留言反馈
+    update:
+      title: 编辑留言反馈
+    show:
+      title: 留言反馈详情 
+    destroy:
+      title: 删除留言反馈 

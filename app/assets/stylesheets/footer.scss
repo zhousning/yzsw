@@ -1,0 +1,19 @@
+/* home footer start */
+.home-footer{
+  padding: 5px 0;
+  .footer-list{
+    li{
+      line-height: 30px;
+      list-style: none;
+      &.head{
+        color: #ff9d00;
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+      a{
+        color: #e3e3e3;
+      }
+    }
+  }
+}
+/* home footer end */

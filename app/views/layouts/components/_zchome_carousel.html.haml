@@ -1,0 +1,35 @@
+#slide-swiper
+  .swiper-container
+    .swiper-wrapper
+      - @showrooms.each do |room|
+        .swiper-slide
+          = link_to room.photo_url  do
+            = image_tag room.photo_url
+            %small.text-secondary
+              = room.title
+  -#
+    .swiper-pagination
+    .swiper-button-prev
+    .swiper-button-next
+
+<script>
+var swiper = new Swiper("#slide-swiper .swiper-container", {
+slidesPerView: 6,
+spaceBetween: 5,
+loop: true,
+loopFillGroupWithBlank: true,
+autoplay: {
+delay: 2500,
+disableOnInteraction: false,
+},
+pagination: {
+el: ".swiper-pagination",
+clickable: true,
+},
+
+navigation: {
+nextEl: ".swiper-button-next",
+prevEl: ".swiper-button-prev",
+},
+});
+</script>

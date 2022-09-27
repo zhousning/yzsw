@@ -1,0 +1,66 @@
+---
+- 
+  role_name: 厂区用户
+  level: 1
+  permissions: 
+    -
+      controller: articles_controller
+      actions: [index, show, new, create, edit, update, destroy, download_attachment]
+    -
+      controller: questions_controller
+      actions: [index, edit, update, destroy]
+    -
+      controller: home_contents_controller
+      actions: [edit, update]
+    -
+      controller: carousels_controller
+      actions: [index, show, new, create, edit, update, destroy]
+    -
+      controller: shutters_controller
+      actions: [index, show, create, edit, update, destroy]
+    -
+      controller: showrooms_controller
+      actions: [index, new, create, edit, update, destroy]
+- 
+  role_name: 集团用户
+  level: 1
+  permissions: 
+    -
+      controller: articles_controller
+      actions: [index, show, new, create, edit, update, destroy, download_attachment]
+    -
+      controller: questions_controller
+      actions: [index, edit, update, destroy]
+    -
+      controller: home_contents_controller
+      actions: [edit, update]
+    -
+      controller: carousels_controller
+      actions: [index, show, new, create, edit, update, destroy]
+    -
+      controller: shutters_controller
+      actions: [index, show, create, edit, update, destroy]
+    -
+      controller: showrooms_controller
+      actions: [index, new, create, edit, update, destroy]
+    -
+      controller: frsts_controller
+      actions: [index, query_device, new, create, edit, update, destroy]
+    -
+      controller: home_settings_controller
+      actions: [index, new, create, edit, update, destroy]
+    -
+      controller: spiders_controller
+      actions: [start, index, new, create, edit, update, destroy]
+    -
+      controller: wxtools_controller
+      actions: [index, new, create, edit, update, destroy]
+    -
+      controller: matters_controller
+      actions: [index, show, new, create, edit, update, destroy]
+    -
+      controller: engines_controller
+      actions: [edit, update]
+    -
+      controller: positions_controller
+      actions: [index, show, create, edit, update, destroy]

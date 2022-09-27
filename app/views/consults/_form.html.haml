@@ -1,0 +1,45 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @question, :url => "/consults/#{@question.id ? idencode(@question.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @question.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@question.errors.count, "错误")}:"
+            %ul
+              - @question.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-md-12
+            #flash_explanation
+            .card.border-0.mb-3.rounded-0
+              .card-body
+                %table.w-100.table-bordered.day-pdt-table
+                  %tbody
+                    -#
+                      %tr
+                      %td.p-2.text-center
+                        = f.text_field :title, :class => "form-control" , :placeholder => '标题', :required => true
+                    %tr
+                      %td.p-2.text-center
+                        = f.text_area :content, :class => "form-control", :rows => "5" , :required => true, :minlength => 20 
+                      
+          
+            
+            -#
+              .form-group.row
+              = f.label "附图", :class => "col-2 text-right col-form-label col-form-label"
+              .col-10
+                .row
+                  = f.fields_for :enclosures do |enclosure|
+                    = render 'enclosure_fields', f: enclosure
+                  .links
+                    = link_to_add_association "添加文件", f, :enclosures, :class => "button button-small button-primary"
+          
+            .form-group.row
+              .col-5.offset-1
+                %small
+                  每日最多2次留言，字数大于20
+              .col-3.offset-3
+                = f.submit '保存', :class => "button button-action"

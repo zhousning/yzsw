@@ -1,0 +1,7 @@
+{
+  <% if @enclosure %>
+  "component": true,
+  <% end %>
+  "usingComponents": {
+  }
+}

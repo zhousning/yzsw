@@ -1,0 +1,90 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-sm-12
+              %h2.text-center
+                = image_tag "gykg.jpg"
+            .col-md-8.offset-2.p-5.border
+              .card.border-0.mb-3.rounded-0
+                .card-header.bg-transparent.border-dark
+                  %h5
+                    = Setting.home_contents.label
+                .card-body
+                  %table.table-bordered.day-pdt-table.w-100.mb-3
+                    %tbody
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.home_contents.dtevent
+                        %td.p-2.text-center
+                          = @home_content.dtevent
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.home_contents.dtlink
+                        %td.p-2.text-center
+                          = @home_content.dtlink
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.home_contents.desc1
+                        %td.p-2.text-center
+                          = @home_content.desc1
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.home_contents.desc2
+                        %td.p-2.text-center
+                          = @home_content.desc2
+                    
+              .row
+              
+                .col-md-6
+                  = image_tag @home_content.by1_url, :class => "w-100"
+              
+                .col-md-6
+                  = image_tag @home_content.by2_url, :class => "w-100"
+              
+                .col-md-6
+                  = image_tag @home_content.by3_url, :class => "w-100"
+              
+                .col-md-6
+                  = image_tag @home_content.by4_url, :class => "w-100"
+              
+                .col-md-6
+                  = image_tag @home_content.by5_url, :class => "w-100"
+              
+                .col-md-6
+                  = image_tag @home_content.by6_url, :class => "w-100"
+              
+              .row
+              
+                - @home_content.enclosures.each do |e|
+                  .col-md-6
+                    = image_tag e.file_url(:small_width), :class => "w-100"
+              
+              .row
+              
+                .col-md-6
+                  - unless @home_content.video.blank?
+                    = link_to URI.decode(File.basename(@home_content.video_url)), download_append_home_content_path(idencode(@home_content.id))
+              
+              
+              .row
+                - @home_content.attachments.each_with_index do |e, i|
+                  .col-md-12
+                    = link_to File.basename(URI.decode(e.file_url)), download_attachment_home_content_path(idencode(@home_content.id), :number => i, :ft => '')
+              
+              
+      = render "layouts/bootstrap/card"

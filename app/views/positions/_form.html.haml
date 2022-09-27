@@ -1,0 +1,104 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @position, :url => "/positions/#{@position.id ? idencode(@position.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @position.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@position.errors.count, "错误")}:"
+            %ul
+              - @position.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-md-8.offset-md-2.p-5.border
+            #flash_explanation
+            .card.border-0.mb-3.rounded-0
+              .card-body
+                %table.w-100.table-bordered.day-pdt-table
+                  %tbody
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.positions.title, :class => "text-center"
+                      %td.p-2.text-center{:colspan => 3}
+                        = f.text_field :title, :class => "form-control" , :required => true
+                      
+                    
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.positions.content, :class => "text-center"
+                      %td.p-2.text-center{:colspan => 3}
+                        = f.text_field :content, :class => "form-control" , :required => true
+                      
+                    
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.positions.lnt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :lnt, :class => "form-control" , :required => true
+                      
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.positions.lat, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :lat, :class => "form-control" , :required => true
+                      
+                    
+                    
+                    -#
+                      %tr
+                        %td.p-2.text-center
+                          = f.label Setting.positions.center_lnt, :class => "text-center"
+                        %td.p-2.text-center
+                          = f.text_field :center_lnt, :class => "form-control" , :required => true
+                        
+                      
+                      
+                        %td.p-2.text-center
+                          = f.label Setting.positions.center_lat, :class => "text-center"
+                        %td.p-2.text-center
+                          = f.text_field :center_lat, :class => "form-control" , :required => true
+                      
+                    
+                      %tr
+                      %td.p-2.text-center
+                        = f.label Setting.positions.des1, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :des1, :class => "form-control" 
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.positions.des2, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :des2, :class => "form-control" 
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.positions.des3, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :des3, :class => "form-control" 
+                      
+                    
+          
+            .form-group.row
+              = f.label "标记图片", :class => "col-2 col-form-label text-right"
+              .col-10
+                %label.newbutton
+                  = image_tag f.one_image("photo"), :class => "blah"
+                  = f.file_field :photo, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+          
+          
+          
+          
+            .form-group.row
+              .col-3.offset-3
+                = f.submit '保存', :class => "button  button-small button-action"
+            -#
+              .col-3.offset-1
+                = link_to '返回', positions_path, :class => "button button-small  button-caution"

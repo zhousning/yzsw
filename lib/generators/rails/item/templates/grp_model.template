@@ -1,0 +1,2 @@
+class Grp<%= @mc %> < ActiveRecord::Base
+end

@@ -1,0 +1,41 @@
+---
+#controller的名字均为程序中controller名称的单数，如AnalysesController为Analysis，必须有对应的model,可以建空model
+-
+  controller: articles_controller
+  actions: [index, show, new, create, edit, update, destroy, list, info, download_attachment ]
+-
+  controller: carousels_controller
+  actions: [index, show, new, create, edit, update, destroy]
+-
+  controller: showrooms_controller
+  actions: [index, new, create, edit, update, destroy]
+-
+  controller: home_contents_controller
+  actions: [edit, update]
+-
+  controller: frsts_controller
+  actions: [index, query_device, new, create, edit, update, destroy]
+-
+  controller: home_settings_controller
+  actions: [index, new, create, edit, update, destroy]
+-
+  controller: spiders_controller
+  actions: [start, index, new, create, edit, update, destroy]
+-
+  controller: wxtools_controller
+  actions: [index, new, create, edit, update, destroy]
+-
+  controller: matters_controller
+  actions: [index, show, new, create, edit, update, destroy]
+-
+  controller: questions_controller
+  actions: [index, edit, update, destroy]
+-
+  controller: engines_controller
+  actions: [edit, update]
+-
+  controller: shutters_controller
+  actions: [index, show, create, edit, update, destroy]
+-
+  controller: positions_controller
+  actions: [index, show, create, edit, update, destroy]

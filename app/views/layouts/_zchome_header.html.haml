@@ -1,0 +1,52 @@
+
+-#
+  #header-image.container.pt-3.pb-2
+  .row
+    .col-sm-4
+      = image_tag "gslogo.png", :class => "w-100"
+    .col-sm-4.offset-4.d-flex.align-items-end.justify-content-end
+      %p.service-number
+        客服热线: 0537-6821275
+      -#
+        = image_tag "lsswgzh.jpg"
+%nav.navbar.navbar-expand-lg.p-0.pl-5.border-bottom
+  = link_to root_path, :class => 'ml-5 pb-0 bg-white navbar-brand shadow-none' do
+    = image_tag "gslogo.png", :class => 'w-100'
+
+  .collapse.navbar-collapse.position-relative
+    .container.px-0
+      %ul#zchome-header-navbar.navbar-nav.w-100.justify-content-between.pl-0.pr-3
+        %li.nav-item.py-2.show-on-hover
+          %a.nav-link.text-dark{:href => root_path}
+            首页
+        - Frst.order('sequence').each do |frst|
+          %li.nav-item.py-2.show-on-hover.position-relative
+            %a.nav-link.text-dark{:href => "javascript:void(0)"}
+              = frst.name
+            .dropdown-menu.mt-0.border-0.rounded-0.py-0
+              - frst.secds.order('sequence DESC').each do |secd|
+                .col.box.px-0
+                  - if secd.showstyle == Setting.secds.sindex
+                    = link_to list_secd_newspapers_path(idencode(secd.id)), :class => "hvr-underline-from-left text-decoration-none dropdown-item py-3" do 
+                      -#
+                        = image_tag 'frsticon/' + secd.svg + '.svg'
+                        = image_tag secd.header_url
+                      %span.nav-title
+                        = secd.name
+                  - elsif secd.showstyle == Setting.secds.sshow
+                    - if secd.articles.last.nil? 
+                      = link_to "javascript:void(0)", :class => "hvr-underline-from-left text-decoration-none dropdown-item py-3"  do 
+                        %span.nav-title
+                          = secd.name
+                    - else
+                      = link_to info_secd_newspaper_path(idencode(secd.id), idencode(secd.articles.last.id)), :class => "hvr-underline-from-left text-decoration-none dropdown-item py-3"  do 
+                        %span.nav-title
+                          = secd.name
+                  - elsif secd.showstyle == Setting.secds.slink
+                    = link_to secd.link, :class => "hvr-underline-from-left text-decoration-none dropdown-item py-3", :target => '_blank'   do 
+                      %span.nav-title
+                        = secd.name
+        - if @engine.consult
+          %li.nav-item.py-2.show-on-hover
+            = link_to Setting.questions.label, consults_path, {:class => 'nav-link text-dark'}
+

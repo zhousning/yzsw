@@ -1,0 +1,141 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @home_content, :url => "/home_contents/#{@home_content.id ? idencode(@home_content.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @home_content.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@home_content.errors.count, "错误")}:"
+            %ul
+              - @home_content.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-sm-12
+            %h2.text-center
+              = image_tag "gykg.jpg"
+              = Setting.home_contents.label
+          .col-md-8.offset-md-2.p-5.border
+            #flash_explanation
+            .card.border-0.mb-3.rounded-0
+              -#
+                .card-header.bg-transparent.border-success
+                %h5
+              .card-body
+                %table.w-100.table-bordered.day-pdt-table
+                  %tbody
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.home_contents.dtevent, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :dtevent, :class => "form-control" , :required => true
+                      
+                    
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.home_contents.dtlink, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_area :dtlink, :class => "form-control", :rows => "10" , :required => true
+                      
+                    
+                    
+                    -#
+                      %td.p-2.text-center
+                        = f.label Setting.home_contents.desc1, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.text_field :desc1, :class => "form-control" , :required => true
+                      
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = f.label Setting.home_contents.desc2, :class => "text-center"
+                        %td.p-2.text-center
+                          = f.text_field :desc2, :class => "form-control" , :required => true
+                      
+                    
+          
+            .form-group.row
+              = f.label "百叶窗图片第一张640*320", :class => "col-4 col-form-label text-right"
+              .col-3
+                %label.newbutton
+                  = image_tag f.one_image("by1"), :class => "blah"
+                  = f.file_field :by1, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+            .form-group.row
+              = f.label "百叶窗图片第二张640*320", :class => "col-4 col-form-label text-right"
+              .col-3
+                %label.newbutton
+                  = image_tag f.one_image("by2"), :class => "blah"
+                  = f.file_field :by2, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+            .form-group.row
+              = f.label "百叶窗图片第三张640*320", :class => "col-4 col-form-label text-right"
+              .col-3
+                %label.newbutton
+                  = image_tag f.one_image("by3"), :class => "blah"
+                  = f.file_field :by3, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+            .form-group.row
+              = f.label "百叶窗图片第四张640*320", :class => "col-4 col-form-label text-right"
+              .col-3
+                %label.newbutton
+                  = image_tag f.one_image("by4"), :class => "blah"
+                  = f.file_field :by4, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+            .form-group.row
+              = f.label "百叶窗图片第五张640*320", :class => "col-4 col-form-label text-right"
+              .col-3
+                %label.newbutton
+                  = image_tag f.one_image("by5"), :class => "blah"
+                  = f.file_field :by5, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+            -#
+              .form-group.row
+              = f.label "百叶窗图片第一张640*320", :class => "col-2 col-form-label text-right"
+              .col-10
+                %label.newbutton
+                  = image_tag f.one_image("by6"), :class => "blah"
+                  = f.file_field :by6, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+          
+          
+            .form-group.row
+              = f.label "首页视频mp4", :class => "col-2 text-right col-form-label col-form-label text-right text-primary"
+              .col-9
+                = f.text_field :video_title, :class => "form-control" , :placeholder => '视频标题'
+            .form-group.row
+              .offset-3.col-9
+                %label.newbutton.button.button-primary
+                  %p.append-url
+                    = f.one_attachment("video")
+                  = f.file_field :video, :class => "select-file", :onchange => "readFileName(this);", :accept => ".mp4"
+          
+          
+            -#
+              .form-group.row
+              = f.label "附图", :class => "col-2 text-right col-form-label col-form-label"
+              .col-10
+                .row
+                  = f.fields_for :enclosures do |enclosure|
+                    = render 'enclosure_fields', f: enclosure
+                  .links
+                    = link_to_add_association "添加文件", f, :enclosures, :class => "button button-small button-primary"
+          
+          
+              .form-group.row
+              = f.label "附件", :class => "col-2 text-right col-form-label"
+              .col-10
+                .row
+                  = f.fields_for :attachments do |attachment|
+                    = render 'attachment_fields', f: attachment
+                  .links
+                    = link_to_add_association "添加文件", f, :attachments, :class => "button button-small button-primary"
+          
+          
+            .form-group.row
+              .col-3.offset-3
+                = f.submit '保存', :class => "button  button-small button-action"
+            -#
+              .col-3.offset-1
+                = link_to '返回', home_contents_path, :class => "button button-small  button-caution"

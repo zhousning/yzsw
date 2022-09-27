@@ -1,0 +1,238 @@
+class Grp<%= @mpc %>Controller < ApplicationController
+  layout "application_control"
+  before_filter :authenticate_user!
+  #authorize_resource
+
+  <% if @selector %> 
+  def query_device
+    @devices = <%= @mc %>.all
+    result = []
+    @devices.each do |item|
+      result << {
+        id: idencode(item.id),
+        text: item.id 
+      }
+    end
+    obj = {
+      "results": result
+    }
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+  <% end %> 
+   
+  def query_list
+    _start = params[:start].gsub(/\s/, '')
+    _end = params[:end].gsub(/\s/, '')
+    fcts = params[:fct].gsub(/\s/, '').split(",")
+
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    @factories = Factory.find(fcts)
+
+    obj = []
+    @factories.each do |fct|
+      items = fct.<%= @mpu %>.where(:search_date => [_start.._end]) 
+      items.each_with_index do |item, index|
+        obj << {
+          :id => index + 1,
+          :fct_id  => idencode(fct.id), 
+          :button => "<button class = 'button button-royal button-small mr-1 log-show-btn' type = 'button' data-id ='" + idencode(item.id).to_s + "'>modal弹窗</button>",
+
+        <% @attrs.each_with_index do |attr, index| %> 
+          :<%= attr %> => item.<%= attr %><%= index == @attrs.size-1 ? '' : ','%>
+        <% end %>
+        }
+      end
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+  def query_info 
+    <%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+    obj = []
+    obj << {
+      :time => <%= @mu %>.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+      <% @attrs.each_with_index do |attr, index| %> 
+        :<%= attr %> => <%= @mu %>.<%= attr %><%= index == @attrs.size-1 ? '' : ','%>
+      <% end %>
+    }
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+
+  <% if @index %> 
+  def index
+    <% if !@selector %> 
+    @factories = Factory.all
+    <% end %> 
+    @<%= @mpu %> = <%= @mc %>.all.page( params[:page]).per( Setting.systems.per_page )
+  end
+  <% end %> 
+
+  def query_all 
+    items = <%= @mc %>.all
+   
+    obj = []
+    items.each do |item|
+      obj << {
+        #:factory => idencode(factory.id),
+        :id => idencode(item.id),
+      <% @attrs.each_with_index do |attr, index| %> 
+        :<%= attr %> => item.<%= attr %><%= index == @attrs.size-1 ? '' : ','%>
+      <% end %>
+      }
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+
+
+  <% if @show %> 
+  def show
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+  end
+  <% end %> 
+
+  <% if @new %> 
+  def new
+    @<%= @mu %> = <%= @mc %>.new
+    <% @fields.each do |field, value| %>
+    @<%= @mu %>.<%= field.pluralize %>.build
+    <% end %>
+  end
+  <% end %> 
+
+  <% if @new %> 
+  def create
+    @<%= @mu %> = <%= @mc %>.new(<%= @mu %>_params)
+    if @<%= @mu %>.save
+      redirect_to :action => :index
+    else
+      render :new
+    end
+  end
+  <% end %> 
+
+  <% if @edit %> 
+  def edit
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+  end
+  <% end %> 
+
+  <% if @edit %> 
+  def update
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+    if @<%= @mu %>.update(<%= @mu %>_params)
+      redirect_to <%= @mu %>_path(idencode(@<%= @mu %>.id)) 
+    else
+      render :edit
+    end
+  end
+  <% end %> 
+
+  <% if @index %> 
+  def destroy
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+    @<%= @mu %>.destroy
+    redirect_to :action => :index
+  end
+  <% end %> 
+
+  <% if @attachment %>
+    def download_attachment 
+      @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+      @attachment_id = params[:number].to_i
+      @attachment = @<%= @mu %>.attachments[@attachment_id]
+
+      if @attachment
+        send_file File.join(Rails.root, "public", URI.decode(@attachment.file_url)), :type => "application/force-download", :x_sendfile=>true
+      end
+    end
+  <% end %>
+
+  <% @one_attachment.each do |att| %>
+    def download_append
+      @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
+      @<%= att %> = @<%= @mu %>.<%= att %>_url
+
+      if @<%= att %>
+        send_file File.join(Rails.root, "public", URI.decode(@<%= att %>)), :type => "application/force-download", :x_sendfile=>true
+      end
+    end
+  <% end %>
+
+  <%if @download %>
+  def xls_download
+    send_file File.join(Rails.root, "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
+  end
+  <% end %>
+  
+  <%if @upload %>
+  def parse_excel
+    excel = params["excel_file"]
+    tool = ExcelTool.new
+    results = tool.parseExcel(excel.path)
+
+    a_str = ""
+    b_str = ""
+    c_str = "" 
+    d_str = ""
+    e_str = ""
+    f_str = ""
+    g_str = ""
+
+    results["Sheet1"][1..-1].each do |items|
+      items.each do |k, v|
+        if !(/A/ =~ k).nil?
+          a_str = v.nil? ? "" : v 
+        elsif !(/B/ =~ k).nil?
+          b_str = v.nil? ? "" : v 
+        elsif !(/C/ =~ k).nil?
+          c_str = v.nil? ? "" : v 
+        elsif !(/D/ =~ k).nil?
+          d_str = v.nil? ? "" : v 
+        elsif !(/E/ =~ k).nil?
+          e_str = v.nil? ? "" : v 
+        elsif !(/F/ =~ k).nil?
+          f_str = v.nil? ? "" : v 
+        elsif !(/G/ =~ k).nil?
+          g_str = v.nil? ? "" : v 
+          break
+        end
+      end
+    end
+
+    redirect_to :action => :index
+  end 
+  <% end %>
+
+  private
+    def <%= @mu %>_params
+      params.require(:<%= @mu %>).permit(<% @attrs.each_with_index do |attr, index| %> :<%= attr %><%= index == @attrs.size-1 ? '' : ','%><% end %><% @one_enclosure.each do |e| %> , :<%= e %><% end %><% @one_attachment.each do |a| %> , :<%= a %><% end %><% if @attachment %> , attachments_attributes: attachment_params<% end %><% if @enclosure %> , enclosures_attributes: enclosure_params<% end %><% @fields.each do |field, value| %>, <%= field.pluralize %>_attributes: <%= field %>_params<% end %>)
+    end
+  <% if @enclosure %>
+    def enclosure_params
+      [:id, :file, :_destroy]
+    end
+  <% end %>
+  <% if @attachment %>
+    def attachment_params
+      [:id, :file, :_destroy]
+    end
+  <% end %>
+  <% @fields.each do |field, value| %>
+    def <%= field %>_params
+      [:id<% value['attr'].each do |attr| %>, :<%= attr %><% end %> ,:_destroy]
+    end
+  <% end %>
+end
+

@@ -1,0 +1,35 @@
+- provide(:title, @article.title)
+
+.container.mt-4.py-3
+  .row.my-3
+    .col-12.px-0
+      - if @frst.header  
+        = image_tag @frst.header_url, :class => 'w-100'
+  .row
+    #sidebar-list.col-12.col-md-3.min-height-info{:style => "background: url('#{@frst.sidebar.blank? ? image_url('sidebar-bg.jpg') : @frst.sidebar_url}') no-repeat;"}
+      %ul.list-group.list-group-flush.pt-3
+        - @secds.each do |secd|
+          - if secd.showstyle == Setting.secds.sindex
+            = link_to secd.name, list_secd_newspapers_path(idencode(secd.id)), :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+          - elsif secd.showstyle == Setting.secds.sshow
+            - if secd.articles.last.nil? 
+              = link_to secd.name, "javascript:void(0)", :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+            - else
+              = link_to secd.name, info_secd_newspaper_path(idencode(secd.id), idencode(secd.articles.last.id)), :class => "list-group-item list-group-item-action hvr-sweep-to-right"
+
+    #sidebar-content.col-12.col-md-9.bg-white.min-height-900.px-4.py-3
+      %h5.text-center.mt-3                                                                                         
+        = @article.title                                                                                            
+      %p.text-center                                                                                               
+        %small                                                                                                     
+          = "发布时间: " +  @article.pdt_date.strftime('%Y-%m-%d')                                                
+      %hr                                                                                                          
+      = @article.content.nil? ? '' : @article.content.html_safe       
+      - if @article.attachments.size > 0
+        .row
+          .col-md-12
+            %h5.text-danger
+              附件:
+          - @article.attachments.each_with_index do |e, i|
+            .col-md-12
+              = link_to File.basename(URI.decode(e.file_url)), download_attachment_secd_newspaper_path(idencode(@article.secd.id), idencode(@article.id), :number => i, :ft => '')

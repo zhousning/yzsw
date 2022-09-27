@@ -1,0 +1,182 @@
+-#
+  %section.my-3
+  .container.py-2.bg-white
+    .row
+      .col-3
+        .card.rounded-0.border-0
+          -#
+            .card-header.bg-white.text-primary.p-2
+              业务办理地址
+          .card-body.p-0
+            %ul.list-group.list-group-flush
+              %li.list-group-item.py-e.bg-2eacce.text-white
+                %p
+                  崇文新区东门南梁山水务客服中心
+                客服热线:7360555
+              %li.list-group-item.py-3.bg-2eacce.text-white
+                %p
+                  新城政务中心服务大厅梁山水务业务办理窗口
+                客服热线:7366767
+      .col-9
+        %main{:role => "main"}
+          #carouselExampleIndicators.carousel.slide{"data-ride" => "carousel"}
+            %ol.carousel-indicators
+              - @carousels.each_with_index do |c, i|          
+                %li{:class => i == 0 ? "active" : '', "data-slide-to" => i.to_s, "data-target" => "#carouselExampleIndicators"}
+            .carousel-inner.rounded-0
+              - @carousels.each_with_index do |c, i|          
+                .carousel-item{:class => i == 0 ? "active" : ''}
+                  = image_tag c.photo, :class => "d-block w-100"
+            %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+              %span.sr-only Previous
+            %a.carousel-control-next{"data-slide" => "next", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-next-icon{"aria-hidden" => "true"}
+              %span.sr-only Next
+
+%section
+  .container-fluid.bg-white
+    .row
+      .col-12.px-0
+        %main{:role => "main"}
+          #carouselExampleIndicators.carousel.slide{"data-ride" => "carousel"}
+            %ol.carousel-indicators
+              - @carousels.each_with_index do |c, i|          
+                %li{:class => i == 0 ? "active" : '', "data-slide-to" => i.to_s, "data-target" => "#carouselExampleIndicators"}
+            .carousel-inner.rounded-0
+              - @carousels.each_with_index do |c, i|          
+                .carousel-item{:class => i == 0 ? "active" : ''}
+                  = image_tag c.photo, :class => "d-block w-100"
+            %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+              %span.sr-only Previous
+            %a.carousel-control-next{"data-slide" => "next", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-next-icon{"aria-hidden" => "true"}
+              %span.sr-only Next
+
+%section.my-3
+  .container.py-2.bg-white
+    .row
+      .col-12.d-flex.justify-content-between.align-items-center
+        - @matters.each do |matter|
+          .rounded{:style => "background: ##{matter.background}"}
+            %a.d-flex.align-items-center.py-3.px-4.event-list-btn.text-decoration-none{:href => matter.link, :target => '_blank'}
+              %i.fa.fa-2x.mr-3{:class => "fa-#{matter.icon}"}
+              = matter.title
+        .rounded.bg-648e50
+          %a.d-flex.align-items-center.py-3.px-4.event-list-btn.text-decoration-none{:href => "#", "data-target" => "#newModal", "data-toggle" => "modal", :type => "button" }
+            %i.fa.fa-map-o.fa-2x.mr-3
+            服务网点
+            
+
+
+%section.my-3
+  .container
+    .row
+      .col-6
+        #shutterExampleIndicators.carousel.slide{"data-ride" => "carousel"}
+          %ol.carousel-indicators
+            - @shutters.each_with_index do |c, i|          
+              %li{:class => i == 0 ? "active" : '', "data-slide-to" => i.to_s, "data-target" => "#shutterExampleIndicators"}
+          .carousel-inner.rounded-0
+            - @shutters.each_with_index do |c, i|          
+              .carousel-item{:class => i == 0 ? "active" : ''}
+                = image_tag c.photo, :class => "d-block w-100"
+          %a.carousel-control-prev{"data-slide" => "prev", :href => "#shutterExampleIndicators", :role => "button"}
+            %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+            %span.sr-only Previous
+          %a.carousel-control-next{"data-slide" => "next", :href => "#shutterExampleIndicators", :role => "button"}
+            %span.carousel-control-next-icon{"aria-hidden" => "true"}
+            %span.sr-only Next
+      .col-6
+        .card.rounded-0.border.border-white.zcdy-card
+          .card-header.bg-white.text-primary.p-0.border-bottom
+            %nav
+              .index-nav-tab.nav.nav-pills{:role => "tablist"}
+                - @diyi.each_with_index do |secd, index|
+                  %a.nav-item.nav-link.rounded-0{:class => index == 0 ? 'active' : '' , :id => "nav-home#{index}-tab", "aria-controls" => "nav-home#{index}", "aria-selected" => index == 0 ? 'true' : 'false' , "data-toggle" => "tab", :href => "#nav-home#{index}", :role => "tab"}
+                    = secd[:name]
+          #nav-tabContent.tab-content.py-1
+            - @diyi.each_with_index do |secd, index|
+              .tab-pane.fade{:class => index == 0 ? 'active show' : '' , :id => "nav-home#{index}", "aria-labelledby" => "nav-home#{index}-tab", :role => "tabpanel"}
+                %ul.list-group
+                  - secd[:articles].each_with_index do |article, index|
+                    - if index < 3
+                      %li.list-group-item.px-0.border-0
+                        .d-flex.w-100.justify-content-between
+                          = link_to  info_secd_newspaper_path(idencode(secd[:id]), idencode(article[:id])), :class => "text-body" do
+                            %h5.mb-1.zchome-item-title
+                              = truncate(article[:title], :length => 23)
+                        .text-secondary
+                          = truncate(article[:content], :length => 60)
+                  %li.list-group-item.px-0.border-0.text-right
+                    = link_to '更多>>', list_secd_newspapers_path(idencode(secd[:id])), :class => 'zchome-item-title'
+                    
+
+
+%section.pt-3
+  .container
+    .row
+      - @dangjian.each_with_index do |secd, index|
+        .col-sm-4.mb-5
+          .card.border-0.rounded-0.d-block
+            .card-header.text-center.p-2.zchome-section-title.border-0.mb-3{:class => zchome_setion_background(index)}
+              %span
+                = secd[:name]
+              %span.pull-right
+                = link_to '>>', list_secd_newspapers_path(idencode(secd[:id])), :class => 'text-white'
+            .card-body.px-0.pt-2.pb-3
+              %ul.list-group.list-group-flush
+                - secd[:articles].each_with_index do |article, index|
+                  - if index < 7 
+                    %li.list-group-item.d-flex.justify-content-between.align-items-center.px-0
+                      = link_to info_secd_newspaper_path(idencode(secd[:id]), idencode(article[:id])), :class => "text-body" do
+                        = fa_icon 'caret-right' 
+                        = truncate(article[:title], :length => 16)
+                      %span
+                        = article[:pdt_date]
+
+
+%section
+  .container
+    .row
+      .col-md-12
+        .card.rounded-0.border.border-white.zcslide-carousel
+          .card-header.bg-white.text-primary.p-0.border-bottom
+            %nav
+              .index-nav-tab.nav.nav-pills{:role => "tablist"}
+                %a.nav-item.nav-link.rounded-top.active{:id => "nav-carousel-tab", "aria-controls" => "nav-carousel", "aria-selected" => 'true' , "data-toggle" => "tab", :href => "#nav-carousel", :role => "tab"}
+                  图片欣赏
+          .tab-content.p-2.border-00b4e7
+            .tab-pane.fade.active.show{:id => "nav-carousel", "aria-labelledby" => "nav-carousel-tab", :role => "tabpanel"}
+              = render "layouts/components/zchome_carousel"
+
+
+
+%section.my-3
+  .container.py-2
+    %hr
+    .row
+      .col-3.d-flex.justify-content-between.align-items-center
+        %a.event-list-btn.text-decoration-none{:href => "http://www.zcszlsgs.com", :target => '_blank'}
+          = image_tag 'kfrx.jpg', :class => 'w-100'
+      .col-3.d-flex.justify-content-between.align-items-center
+        %a.event-list-btn.text-decoration-none{:href => "http://www.sdgyswjt.com", :target => '_blank'}
+          = image_tag 'gslogo.jpg', :class => 'w-100'
+      .col-3.d-flex.justify-content-between.align-items-center
+        %a.event-list-btn.text-decoration-none{:href => "http://www.zoucheng.gov.cn/", :target => '_blank'}
+          = image_tag 'zcrmzf.png', :class => 'w-100'
+      .col-3.d-flex.justify-content-between.align-items-center
+        %a.event-list-btn.text-decoration-none{:href => "http://www.cnwaternews.com/", :target => '_blank'}
+          = image_tag 'zgsw.png', :class => 'w-100'
+
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      -#
+        .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'home/map'
